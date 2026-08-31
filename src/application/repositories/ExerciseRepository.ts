@@ -9,10 +9,10 @@ export class ExerciseRepository {
       `
         INSERT INTO exercises (
           id,
-          profile_id,
+          profileId,
           name,
           day,
-          created_at
+          createdAt
         )
         VALUES (?, ?, ?, ?, ?)
       `,
@@ -33,13 +33,13 @@ export class ExerciseRepository {
       `
         SELECT
           id,
-          profile_id as profileId,
+          profileId,
           name,
           day,
-          created_at as createdAt
+          createdAt
         FROM exercises
-        WHERE profile_id = ?
-        ORDER BY created_at DESC
+        WHERE profileId = ?
+        ORDER BY createdAt ASC
       `,
       [profileId],
     );
@@ -50,12 +50,12 @@ export class ExerciseRepository {
       `
         SELECT
           id,
-          profile_id as profileId,
+          profileId,
           name,
           day,
-          created_at as createdAt
+          createdAt
         FROM exercises
-        ORDER BY created_at DESC
+        ORDER BY createdAt ASC
       `,
     );
   }
@@ -65,6 +65,16 @@ export class ExerciseRepository {
       `
         DELETE FROM exercises
         WHERE id = ?
+      `,
+      [id],
+    );
+  }
+
+  async deleteByProfileId(id: string) {
+    return this.database.run(
+      `
+        DELETE FROM exercises
+        WHERE profileId = ?
       `,
       [id],
     );

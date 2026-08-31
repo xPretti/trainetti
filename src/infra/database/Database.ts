@@ -4,7 +4,7 @@ export class Database {
   private db: SQLite.SQLiteDatabase | null = null;
 
   async start() {
-    this.db = await SQLite.openDatabaseAsync("trainetti.db");
+    this.db = await SQLite.openDatabaseAsync("trainetti2.db");
   }
 
   async migrate() {
@@ -14,15 +14,15 @@ export class Database {
       CREATE TABLE IF NOT EXISTS profiles (
         id TEXT PRIMARY KEY NOT NULL,
         name TEXT NOT NULL,
-        created_at INTEGER NOT NULL
+        createdAt INTEGER NOT NULL
       );
 
       CREATE TABLE IF NOT EXISTS exercises (
         id TEXT PRIMARY KEY NOT NULL,
-        profile_id TEXT NOT NULL,
+        profileId TEXT NOT NULL,
         name TEXT NOT NULL,
         day TEXT NOT NULL,
-        created_at INTEGER NOT NULL
+        createdAt INTEGER NOT NULL
       );
     `);
   }

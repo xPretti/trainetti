@@ -21,6 +21,8 @@ export type WorkoutState = {
   addExercise: (profileId: string, name: string, day: string) => Promise<void>;
 
   removeProfile: (id: string) => Promise<void>;
+
+  removeExercise: (id: string) => Promise<void>;
 };
 
 export function createWorkoutStore(
@@ -43,8 +45,6 @@ export function createWorkoutStore(
           profiles.findAll(),
           exercises.findAll(),
         ]);
-
-        console.log(profilesData, exercisesData);
 
         set({
           profiles: profilesData,
@@ -90,12 +90,22 @@ export function createWorkoutStore(
     removeProfile: async (id) => {
       await profiles.delete(id);
 
+      await exercises.deleteByProfileId(id);
+
       set((state) => ({
         profiles: state.profiles.filter((profile) => profile.id !== id),
 
         exercises: state.exercises.filter(
           (exercise) => exercise.profileId !== id,
         ),
+      }));
+    },
+
+    removeExercise: async (id) => {
+      await exercises.delete(id);
+
+      set((state) => ({
+        exercises: state.exercises.filter((exercise) => exercise.id !== id),
       }));
     },
   }));

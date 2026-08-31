@@ -1,191 +1,114 @@
-import React, {
-   useState,
-} from 'react';
+import React, { useState } from "react";
 
-import {
-   View,
-   Text,
-   StyleSheet,
-   ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from "react-native";
 
-import { Input } from '../components/ui/Input';
-import { Button } from '../components/ui/Button';
-import { Card } from '../components/ui/Card';
+import { Input } from "../components/ui/Input";
+import { Button } from "../components/ui/Button";
+import { Card } from "../components/ui/Card";
 
-import { useWorkoutStore } from '../hooks/useWorkoutStore';
+import { useWorkoutStore } from "../hooks/useWorkoutStore";
 
 export function TestPage() {
-   const [profileName, setProfileName] =
-      useState('');
+   const [profileName, setProfileName] = useState("");
 
-   const [exerciseName, setExerciseName] =
-      useState('');
+   const [exerciseName, setExerciseName] = useState("");
 
-   const [day, setDay] =
-      useState('Segunda');
+   const [day, setDay] = useState("Segunda");
 
-   const profiles = useWorkoutStore(
-      state => state.profiles
-   );
+   const profiles = useWorkoutStore((state) => state.profiles);
 
-   const exercises = useWorkoutStore(
-      state => state.exercises
-   );
+   const exercises = useWorkoutStore((state) => state.exercises);
 
-   const loading = useWorkoutStore(
-      state => state.loading
-   );
+   const loading = useWorkoutStore((state) => state.loading);
 
-   const addProfile = useWorkoutStore(
-      state => state.addProfile
-   );
+   const addProfile = useWorkoutStore((state) => state.addProfile);
 
-   const addExercise = useWorkoutStore(
-      state => state.addExercise
-   );
+   const addExercise = useWorkoutStore((state) => state.addExercise);
 
-   const removeProfile =
-      useWorkoutStore(
-         state => state.removeProfile
-      );
+   const removeProfile = useWorkoutStore((state) => state.removeProfile);
+
+   const removeExercise = useWorkoutStore((state) => state.removeExercise);
 
    const handleAddProfile = async () => {
       if (!profileName.trim()) {
          return;
       }
 
-      await addProfile(
-         profileName.trim()
-      );
+      await addProfile(profileName.trim());
 
-      setProfileName('');
+      setProfileName("");
    };
 
-   const handleAddExercise =
-      async () => {
-         if (
-            !exerciseName.trim() ||
-            profiles.length === 0
-         ) {
-            return;
-         }
+   const handleAddExercise = async () => {
+      if (!exerciseName.trim() || profiles.length === 0) {
+         return;
+      }
 
-         await addExercise(
-            profiles[0].id,
-            exerciseName.trim(),
-            day
-         );
+      await addExercise(profiles[0].id, exerciseName.trim(), day);
 
-         setExerciseName('');
-      };
+      setExerciseName("");
+   };
 
    return (
-      <ScrollView
-         contentContainerStyle={
-            styles.container
-         }
-      >
-         <Text style={styles.title}>
-            Workout App
-         </Text>
+      <ScrollView contentContainerStyle={styles.container}>
+         <Text style={styles.title}>Workout App</Text>
 
          <Text style={styles.subtitle}>
-            {loading
-               ? 'Carregando...'
-               : 'Banco conectado'}
+            {loading ? "Carregando..." : "Banco conectado"}
          </Text>
 
          <Card>
-            <Text style={styles.heading}>
-               Criar perfil
-            </Text>
+            <Text style={styles.heading}>Criar perfil</Text>
 
             <Input
                placeholder="Nome do perfil"
                value={profileName}
-               onChangeText={
-                  setProfileName
-               }
+               onChangeText={setProfileName}
             />
 
-            <Button
-               title="Criar perfil"
-               onPress={
-                  handleAddProfile
-               }
-            />
+            <Button title="Criar perfil" onPress={handleAddProfile} />
          </Card>
 
-         <Text style={styles.heading}>
-            Perfis
-         </Text>
+         <Text style={styles.heading}>Perfis</Text>
 
-         {profiles.map(profile => (
+         {profiles.map((profile) => (
             <Card key={profile.id}>
-               <Text style={styles.name}>
-                  {profile.name}
-               </Text>
+               <Text style={styles.name}>{profile.name}</Text>
 
-               <Text>
-                  ID: {profile.id}
-               </Text>
+               <Text>ID: {profile.id}</Text>
 
-               <Button
-                  title="Remover"
-                  onPress={() =>
-                     removeProfile(
-                        profile.id
-                     )
-                  }
-               />
+               <Button title="Remover" onPress={() => removeProfile(profile.id)} />
             </Card>
          ))}
 
          <Card>
-            <Text style={styles.heading}>
-               Criar exercício
-            </Text>
+            <Text style={styles.heading}>Criar exercício</Text>
 
             <Input
                placeholder="Nome do exercício"
                value={exerciseName}
-               onChangeText={
-                  setExerciseName
-               }
+               onChangeText={setExerciseName}
             />
 
-            <Input
-               placeholder="Dia"
-               value={day}
-               onChangeText={setDay}
-            />
+            <Input placeholder="Dia" value={day} onChangeText={setDay} />
 
-            <Button
-               title="Criar exercício"
-               onPress={
-                  handleAddExercise
-               }
-            />
+            <Button title="Criar exercício" onPress={handleAddExercise} />
          </Card>
 
-         <Text style={styles.heading}>
-            Exercícios
-         </Text>
+         <Text style={styles.heading}>Exercícios</Text>
 
-         {exercises.map(exercise => (
+         {exercises.map((exercise) => (
             <Card key={exercise.id}>
-               <Text style={styles.name}>
-                  {exercise.name}
-               </Text>
+               <Text style={styles.name}>{exercise.name}</Text>
 
-               <Text>
-                  Dia: {exercise.day}
-               </Text>
+               <Text>Dia: {exercise.day}</Text>
 
-               <Text>
-                  Profile: {exercise.profileId}
-               </Text>
+               <Text>Profile: {exercise.profileId}</Text>
+
+               <Button
+                  title="Remover"
+                  onPress={() => removeExercise(exercise.id)}
+               />
             </Card>
          ))}
       </ScrollView>
@@ -200,24 +123,24 @@ const styles = StyleSheet.create({
 
    title: {
       fontSize: 28,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       marginBottom: 4,
    },
 
    subtitle: {
       marginBottom: 24,
-      color: '#666',
+      color: "#666",
    },
 
    heading: {
       fontSize: 18,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       marginBottom: 12,
    },
 
    name: {
       fontSize: 18,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       marginBottom: 8,
    },
 });

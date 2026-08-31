@@ -5,20 +5,17 @@ export class ProfileRepository {
   constructor(private readonly database: Database) {}
 
   async create(profile: Profile): Promise<Profile> {
-    const result = await this.database.run(
+    await this.database.run(
       `
         INSERT INTO profiles (
           id,
           name,
-          created_at
+          createdAt
         )
         VALUES (?, ?, ?)
       `,
       [profile.id, profile.name, profile.createdAt],
     );
-
-    console.log(result);
-
     return profile;
   }
 
@@ -28,9 +25,9 @@ export class ProfileRepository {
         SELECT
           id,
           name,
-          created_at as createdAt
+          createdAt
         FROM profiles
-        ORDER BY created_at DESC
+        ORDER BY createdAt ASC
       `,
     );
   }
@@ -41,7 +38,7 @@ export class ProfileRepository {
           SELECT
             id,
             name,
-            created_at as createdAt
+            createdAt
           FROM profiles
           WHERE id = ?
           LIMIT 1
