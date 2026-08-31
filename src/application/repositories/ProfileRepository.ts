@@ -1,4 +1,4 @@
-import { Database } from "../../infra/database/Database";
+import { Database } from "../database/Database";
 import { Profile } from "../../types/Profile";
 
 export class ProfileRepository {

@@ -1,4 +1,4 @@
-import { Database } from "../infra/database/Database";
+import { Database } from "./database/Database";
 
 import { ProfileRepository } from "./repositories/ProfileRepository";
 import { ExerciseRepository } from "./repositories/ExerciseRepository";

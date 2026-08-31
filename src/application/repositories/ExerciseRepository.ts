@@ -1,6 +1,7 @@
-import { Database } from "../../infra/database/Database";
+import { Database } from "../database/Database";
 import { Exercise } from "../../types/Exercise";
 
+// COLOCAR UMA INTERFACE, NÃO VAMOS DEIXAR O STORE SABER QUE EXISTE O Application/
 export class ExerciseRepository {
   constructor(private readonly database: Database) {}
 
@@ -12,9 +13,17 @@ export class ExerciseRepository {
           profileId,
           name,
           day,
-          createdAt
+          createdAt,
+          createdAt,
+          exerciseType,
+          series,
+          repetitionsMin,
+          repetitionsMax,
+          restTime,
+          weight,
+          duration
         )
-        VALUES (?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
       [
         exercise.id,
@@ -22,6 +31,13 @@ export class ExerciseRepository {
         exercise.name,
         exercise.day,
         exercise.createdAt,
+        exercise.exerciseType,
+        exercise.series,
+        exercise.repetitionsMin,
+        exercise.repetitionsMax,
+        exercise.restTime,
+        exercise.weight,
+        exercise.duration,
       ],
     );
 
@@ -32,11 +48,7 @@ export class ExerciseRepository {
     return this.database.all<Exercise>(
       `
         SELECT
-          id,
-          profileId,
-          name,
-          day,
-          createdAt
+          *
         FROM exercises
         WHERE profileId = ?
         ORDER BY createdAt ASC
@@ -49,11 +61,7 @@ export class ExerciseRepository {
     return this.database.all<Exercise>(
       `
         SELECT
-          id,
-          profileId,
-          name,
-          day,
-          createdAt
+          *
         FROM exercises
         ORDER BY createdAt ASC
       `,

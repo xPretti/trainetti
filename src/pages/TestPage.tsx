@@ -13,7 +13,7 @@ export function TestPage() {
 
    const [exerciseName, setExerciseName] = useState("");
 
-   const [day, setDay] = useState("Segunda");
+   const [day, setDay] = useState(0);
 
    const profiles = useWorkoutStore((state) => state.profiles);
 
@@ -23,7 +23,7 @@ export function TestPage() {
 
    const addProfile = useWorkoutStore((state) => state.addProfile);
 
-   const addExercise = useWorkoutStore((state) => state.addExercise);
+   const addExerciseSeries = useWorkoutStore((state) => state.addExerciseSeries);
 
    const removeProfile = useWorkoutStore((state) => state.removeProfile);
 
@@ -44,7 +44,7 @@ export function TestPage() {
          return;
       }
 
-      await addExercise(profiles[0].id, exerciseName.trim(), day);
+      await addExerciseSeries(profiles[0].id, exerciseName.trim(), day, 4, 8, 12, 120, 30);
 
       setExerciseName("");
    };
@@ -90,8 +90,6 @@ export function TestPage() {
                onChangeText={setExerciseName}
             />
 
-            <Input placeholder="Dia" value={day} onChangeText={setDay} />
-
             <Button title="Criar exercício" onPress={handleAddExercise} />
          </Card>
 
@@ -104,6 +102,20 @@ export function TestPage() {
                <Text>Dia: {exercise.day}</Text>
 
                <Text>Profile: {exercise.profileId}</Text>
+
+               <Text>createdAt: {exercise.createdAt}</Text>
+
+               <Text>exerciseType: {exercise.exerciseType}</Text>
+
+               <Text>series: {exercise.series}</Text>
+
+               <Text>repetitionsMin: {exercise.repetitionsMin}</Text>
+
+               <Text>repetitionsMax: {exercise.repetitionsMax}</Text>
+
+               <Text>exercise.restTime: {exercise.restTime}</Text>
+
+               <Text>weight: {exercise.weight}</Text>
 
                <Button
                   title="Remover"

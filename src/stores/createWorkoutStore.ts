@@ -18,7 +18,24 @@ export type WorkoutState = {
 
   addProfile: (name: string) => Promise<void>;
 
-  addExercise: (profileId: string, name: string, day: string) => Promise<void>;
+  addExerciseSeries: (
+    profileId: string,
+    name: string,
+    day: number,
+    series: number,
+    repetitionsMin: number,
+    repetitionsMax: number,
+    restTime: number,
+    weight: number,
+  ) => Promise<void>;
+
+  addExerciseContinuous: (
+    profileId: string,
+    name: string,
+    day: number,
+    duration: number,
+    restTime: number,
+  ) => Promise<void>;
 
   removeProfile: (id: string) => Promise<void>;
 
@@ -71,13 +88,52 @@ export function createWorkoutStore(
       }));
     },
 
-    addExercise: async (profileId, name, day) => {
+    addExerciseSeries: async (
+      profileId,
+      name,
+      day,
+      series,
+      repetitionsMin,
+      repetitionsMax,
+      restTime,
+      weight,
+    ) => {
       const exercise: Exercise = {
         id: generateId(),
         profileId,
         name,
         day,
         createdAt: Date.now(),
+        exerciseType: "series",
+        series,
+        repetitionsMin,
+        repetitionsMax,
+        restTime,
+        weight,
+        duration: null,
+      };
+
+      await exercises.create(exercise);
+
+      set((state) => ({
+        exercises: [...state.exercises, exercise],
+      }));
+    },
+
+    addExerciseContinuous: async (profileId, name, day, duration, restTime) => {
+      const exercise: Exercise = {
+        id: generateId(),
+        profileId,
+        name,
+        day,
+        createdAt: Date.now(),
+        exerciseType: "continuous",
+        duration,
+        series: null,
+        repetitionsMin: null,
+        repetitionsMax: null,
+        restTime,
+        weight: null,
       };
 
       await exercises.create(exercise);
