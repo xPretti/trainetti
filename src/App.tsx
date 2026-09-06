@@ -15,27 +15,20 @@ export default function App() {
    const [error, setError] = useState<unknown>(null);
 
    useEffect(() => {
-      let mounted = true;
 
       async function start() {
          try {
             await app.start();
-
-            if (mounted) {
-               setReady(true);
-            }
+            setReady(true);
          } catch (error) {
-            if (mounted) {
-               setError(error);
-            }
+            setError(error);
+            console.error(error);
          }
       }
 
       start();
 
       return () => {
-         mounted = false;
-
          app.stop();
       };
    }, [app]);

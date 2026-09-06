@@ -3,10 +3,9 @@ import { create } from "zustand";
 import { Profile } from "../types/Profile";
 import { Exercise } from "../types/Exercise";
 
-import { ProfileRepository } from "../application/repositories/ProfileRepository";
-import { ExerciseRepository } from "../application/repositories/ExerciseRepository";
-
 import { generateId } from "../utils/id";
+import { IProfileRepository } from "../interfaces/IProfileRepository";
+import { IExerciseRepository } from "../interfaces/IExerciseRepository";
 
 export type WorkoutState = {
   profiles: Profile[];
@@ -43,8 +42,8 @@ export type WorkoutState = {
 };
 
 export function createWorkoutStore(
-  profiles: ProfileRepository,
-  exercises: ExerciseRepository,
+  profiles: IProfileRepository,
+  exercises: IExerciseRepository,
 ) {
   return create<WorkoutState>((set) => ({
     profiles: [],

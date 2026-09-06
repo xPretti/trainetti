@@ -1,8 +1,8 @@
 import { Database } from "../database/Database";
 import { Exercise } from "../../types/Exercise";
+import { IExerciseRepository } from "../../interfaces/IExerciseRepository";
 
-// COLOCAR UMA INTERFACE, NÃO VAMOS DEIXAR O STORE SABER QUE EXISTE O Application/
-export class ExerciseRepository {
+export class ExerciseRepository implements IExerciseRepository {
   constructor(private readonly database: Database) {}
 
   async create(exercise: Exercise): Promise<Exercise> {
@@ -23,7 +23,7 @@ export class ExerciseRepository {
           weight,
           duration
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `,
       [
         exercise.id,
@@ -68,7 +68,7 @@ export class ExerciseRepository {
     );
   }
 
-  async delete(id: string) {
+  async delete(id: string): Promise<void> {
     await this.database.run(
       `
         DELETE FROM exercises
@@ -78,8 +78,8 @@ export class ExerciseRepository {
     );
   }
 
-  async deleteByProfileId(id: string) {
-    return this.database.run(
+  async deleteByProfileId(id: string): Promise<void> {
+    await this.database.run(
       `
         DELETE FROM exercises
         WHERE profileId = ?

@@ -28,7 +28,11 @@ export class Application {
 
     await this.database.start();
 
+    console.log("[Application] Database started");
+
     await this.database.migrate();
+
+    console.log("[Application] Database migrated");
 
     this.started = true;
 

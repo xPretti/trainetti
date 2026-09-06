@@ -4,7 +4,7 @@ export class Database {
   private db: SQLite.SQLiteDatabase | null = null;
 
   async start() {
-    this.db = await SQLite.openDatabaseAsync("trainetti-dev-0.db");
+    this.db = await SQLite.openDatabaseAsync("trainetti-dev-1.db");
   }
 
   async migrate() {
@@ -55,7 +55,7 @@ export class Database {
         profileId TEXT NOT NULL,
         name TEXT NOT NULL,
         day INTEGER NOT NULL,
-        createdAt INTEGER NOT NULL
+        createdAt INTEGER NOT NULL,
 
         exerciseType TEXT NOT NULL,
 
@@ -65,7 +65,7 @@ export class Database {
         restTime INTEGER,
         weight INTEGER,
 
-        duration INTEGER,
+        duration INTEGER
 
       );
     `);

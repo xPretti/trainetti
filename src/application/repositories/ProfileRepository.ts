@@ -1,7 +1,8 @@
 import { Database } from "../database/Database";
 import { Profile } from "../../types/Profile";
+import { IProfileRepository } from "../../interfaces/IProfileRepository";
 
-export class ProfileRepository {
+export class ProfileRepository implements IProfileRepository {
   constructor(private readonly database: Database) {}
 
   async create(profile: Profile): Promise<Profile> {
