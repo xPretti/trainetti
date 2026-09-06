@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 
 import { Application } from "./application/Application";
-import { AppProvider } from "./contexts/AppProvider";
+import { AppProvider } from "./contexts/AppContext";
 
 import { TestPage } from "./pages/TestPage";
+import { ThemeProvider } from "./contexts/ThemeContext";
 
 export default function App() {
    const [app] = useState(() => new Application());
@@ -15,7 +16,6 @@ export default function App() {
    const [error, setError] = useState<unknown>(null);
 
    useEffect(() => {
-
       async function start() {
          try {
             await app.start();
@@ -51,7 +51,9 @@ export default function App() {
 
    return (
       <AppProvider app={app}>
-         <TestPage />
+         <ThemeProvider>
+            <TestPage />
+         </ThemeProvider>
       </AppProvider>
    );
 }

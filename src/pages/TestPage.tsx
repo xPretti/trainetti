@@ -7,8 +7,11 @@ import { Button } from "../components/ui/Button";
 import { Card } from "../components/ui/Card";
 
 import { useWorkoutStore } from "../hooks/useWorkoutStore";
+import { useTheme } from "../hooks/useTheme";
 
 export function TestPage() {
+   const { theme, themeType, setTheme } = useTheme();
+
    const [profileName, setProfileName] = useState("");
 
    const [exerciseName, setExerciseName] = useState("");
@@ -51,6 +54,7 @@ export function TestPage() {
 
    return (
       <ScrollView contentContainerStyle={styles.container}>
+         <Text> Theme: {themeType} Color: {theme.fontSize.md}</Text>
          <Text style={styles.title}>Workout App</Text>
 
          <Text style={styles.subtitle}>
