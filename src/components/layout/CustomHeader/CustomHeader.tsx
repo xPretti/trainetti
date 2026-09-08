@@ -40,6 +40,7 @@ const createStyles = (theme: Style) =>
          paddingHorizontal: 20,
          paddingVertical: 14,
          gap: 10,
+         height: 75,
       },
 
       backButton: {
@@ -54,6 +55,6 @@ const createStyles = (theme: Style) =>
       title: {
          fontSize: theme.fontSize.lg,
          color: theme.colors.black,
-         fontWeight: "bold",
+         fontWeight: "bold"
       },
    });

@@ -26,7 +26,7 @@ export function StackNavigation() {
 				<Stack.Screen
 					name="index"
 					options={{
-						title: "Início",
+						title: "Trainetti",
 					}}
 				/>
 
