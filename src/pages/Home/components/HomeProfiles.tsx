@@ -3,11 +3,14 @@ import { useTheme } from "../../../hooks/useTheme";
 import { Style } from "../../../styles";
 import { ChevronRight } from "lucide-react-native";
 import { ProfileItem } from "./ProfileItem";
+import { useWorkoutStore } from "../../../hooks/useWorkoutStore";
+import { EmptyProfile } from "../../../components/layout/EmptyProfile";
 
 interface IHomeProfilesProps { }
 
 export function HomeProfiles({ }: IHomeProfilesProps) {
    const { theme } = useTheme();
+   const profiles = useWorkoutStore((state) => state.profiles);
 
    const styles = createStyles(theme);
 
@@ -15,48 +18,48 @@ export function HomeProfiles({ }: IHomeProfilesProps) {
       console.log(profile);
    };
 
+   const handleCreateNewProfile = () => { };
+
+   const handleViewAllProfiles = () => { };
+
+   const someProfiles = profiles.slice(0, 6);
+
    return (
-      <View style={styles.profileContainer}>
-         <View style={styles.profileHeader}>
+      <View style={styles.container}>
+         <View style={styles.header}>
             <Text style={styles.profileTitle}>Todos os perfis</Text>
-            <TouchableOpacity>
-               <View style={styles.profileViewMore}>
-                  <Text style={styles.profileViewMoreText}>Ver mais</Text>
+            <TouchableOpacity onPress={handleViewAllProfiles}>
+               <View style={styles.profileViewAllProfiles}>
+                  <Text style={styles.profileViewAllProfilesText}>Ver mais</Text>
                   <ChevronRight size={16} color={theme.colors.primary} />
                </View>
             </TouchableOpacity>
          </View>
          <View style={styles.profileList}>
-            <ProfileItem title="Perfil 1" handleClick={() => handleSelectProfile("1")} />
-            <ProfileItem title="Perfil 2" handleClick={() => handleSelectProfile("2")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
-            <ProfileItem title="Perfil 3" handleClick={() => handleSelectProfile("3")} />
+            {someProfiles.length > 0 ? (
+               someProfiles.map((profile) => (
+                  <ProfileItem
+                     key={profile.id}
+                     title={profile.name}
+                     handleClick={() => handleSelectProfile(profile.id)}
+                  />
+               ))
+            ) : (
+               <EmptyProfile handleClick={handleCreateNewProfile} />
+            )}
          </View>
       </View>
    );
-};
+}
 
 const createStyles = (theme: Style) =>
    StyleSheet.create({
-      profileContainer: {
+      container: {
          marginTop: 20,
-         width: "100%"
+         width: "100%",
       },
 
-      profileHeader: {
+      header: {
          flexDirection: "row",
          justifyContent: "space-between",
          alignItems: "center",
@@ -70,15 +73,16 @@ const createStyles = (theme: Style) =>
          fontWeight: "bold",
       },
 
-      profileViewMore: {
+      profileViewAllProfiles: {
          flexDirection: "row",
          alignItems: "center",
          gap: 5,
       },
 
-      profileViewMoreText: {
+      profileViewAllProfilesText: {
          color: theme.colors.primary,
          fontSize: theme.fontSize.sm,
+         fontWeight: "bold",
       },
 
       profileList: {
