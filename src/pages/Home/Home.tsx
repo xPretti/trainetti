@@ -26,12 +26,12 @@ export function Home({ }: IHomeProps) {
                   title="Perfis"
                   description="4 perfis"
                   icon={Users}
-                  handleSelect={() => handleSelectProfile("d")}></CardButton>
+                  handleSelect={() => navigate("profiles")}></CardButton>
                <CardButton
                   title="Agendamentos"
                   description="3 pendentes hoje"
                   icon={Bell}
-                  handleSelect={() => handleSelectProfile("d")}></CardButton>
+                  handleSelect={() => navigate("schedules")}></CardButton>
             </View>
             <HomeProfiles />
          </View>

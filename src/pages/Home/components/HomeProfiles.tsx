@@ -5,6 +5,7 @@ import { ChevronRight } from "lucide-react-native";
 import { ProfileItem } from "./ProfileItem";
 import { useWorkoutStore } from "../../../hooks/useWorkoutStore";
 import { EmptyProfile } from "../../../components/layout/EmptyProfile";
+import { navigate, router } from "expo-router/build/global-state/router";
 
 interface IHomeProfilesProps { }
 
@@ -15,12 +16,14 @@ export function HomeProfiles({ }: IHomeProfilesProps) {
    const styles = createStyles(theme);
 
    const handleSelectProfile = (profile: string): void => {
-      console.log(profile);
+      router.push(`/profiles/${profile}`);
    };
 
    const handleCreateNewProfile = () => { };
 
-   const handleViewAllProfiles = () => { };
+   const handleViewAllProfiles = () => {
+      navigate("profiles");
+   };
 
    const someProfiles = profiles.slice(0, 6);
 
