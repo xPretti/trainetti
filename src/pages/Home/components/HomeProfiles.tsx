@@ -4,7 +4,7 @@ import { Style } from "../../../styles";
 import { ChevronRight } from "lucide-react-native";
 import { ProfileItem } from "./ProfileItem";
 import { useWorkoutStore } from "../../../hooks/useWorkoutStore";
-import { EmptyProfile } from "../../../components/layout/EmptyProfile";
+import { EmptyProfileCard } from "../../../components/layout/Profiles/EmptyProfileCard";
 import { navigate, router } from "expo-router/build/global-state/router";
 
 interface IHomeProfilesProps { }
@@ -48,7 +48,7 @@ export function HomeProfiles({ }: IHomeProfilesProps) {
                   />
                ))
             ) : (
-               <EmptyProfile handleClick={handleCreateNewProfile} />
+               <EmptyProfileCard handleClick={handleCreateNewProfile} />
             )}
          </View>
       </View>

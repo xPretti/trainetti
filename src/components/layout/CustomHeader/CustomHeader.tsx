@@ -50,6 +50,7 @@ const createStyles = (theme: Style) =>
          borderRadius: 50,
          justifyContent: "center",
          alignItems: "center",
+         boxShadow: theme.boxShadow[0],
       },
 
       title: {

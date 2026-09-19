@@ -3,10 +3,11 @@ import { ThemeType } from "./types/Theme";
 export const styles = {
 	[ThemeType.DARK]: {
       boxShadow: {
-         0: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-         1: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-         2: "0px 8px 8px rgba(0, 0, 0, 0.25)",
-         3: "0px 16px 16px rgba(0, 0, 0, 0.25)",
+         0: "0px 1px 1px rgba(0, 0, 0, 0.25)",
+         1: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+         2: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+         3: "0px 8px 8px rgba(0, 0, 0, 0.25)",
+         4: "0px 16px 16px rgba(0, 0, 0, 0.25)",
       },
 		colors: {
 			absolute: {
@@ -21,7 +22,7 @@ export const styles = {
 			white: "#000000",
 			black: "#FFFFFF",
 
-			background: "#14141a",
+			background: "#17171f",
 			statusBar: "#17171f",
 			header: "#17171f",
 			surface: "#111827",
@@ -33,12 +34,12 @@ export const styles = {
 				1: "#d3d4d7",
 				2: "#aaabaf",
 				3: "#818287",
-				4: "#58595e",
+				4: "#34353b",
 				5: "#2f3036",
 				6: "#26272c",
-				7: "#1c1c20",
-				8: "#131417",
-				9: "#09090b",
+				7: "#1b1b24",
+				8: "#18181f",
+				9: "#14141a",
 			},
 
 			lime: {

@@ -24,7 +24,7 @@ export function CardButton({
    return (
       <View style={styles.container}>
          <TouchableOpacity onPress={handleSelect}>
-            <View style={styles.jujubas}>
+            <View style={styles.content}>
                {Icon && (
                   <View style={styles.icon}>
                      <Icon size={20} color={theme.colors.lime[5]} />
@@ -45,7 +45,7 @@ const createStyles = (theme: Style) =>
       container: {
          flex: 1,
       },
-      jujubas: {
+      content: {
          backgroundColor: theme.colors.gray[7],
          borderWidth: 1,
          borderColor: theme.colors.gray[6],

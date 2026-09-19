@@ -1,6 +1,7 @@
 import { StyleSheet, Text } from "react-native";
 import { useTheme } from "../../hooks/useTheme";
 import { Style } from "../../styles";
+import { AddProfileCard } from "../../components/layout/Profiles/AddProfileCard";
 
 interface IProfilesProps {}
 
@@ -10,7 +11,7 @@ export function Profiles ({}: IProfilesProps) {
    const styles = createStyles(theme);
 
    return (
-      <Text>Página de profiles</Text>
+      <AddProfileCard />
    );
 };
 
