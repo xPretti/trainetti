@@ -37,8 +37,8 @@ const createStyles = (theme: Style) =>
          backgroundColor: theme.colors.header,
          flexDirection: "row",
          alignItems: "center",
-         paddingHorizontal: 20,
-         paddingVertical: 14,
+         paddingHorizontal: theme.padding[4],
+         paddingVertical: theme.padding[4],
          gap: 10,
          height: 75,
       },
@@ -50,7 +50,6 @@ const createStyles = (theme: Style) =>
          borderRadius: 50,
          justifyContent: "center",
          alignItems: "center",
-         boxShadow: theme.boxShadow[0],
       },
 
       title: {

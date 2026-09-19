@@ -1,7 +1,7 @@
-import { Pressable, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Style } from "../../../styles";
-import { useTheme } from "../../../hooks/useTheme";
-import { alpha } from "../../../utils/color";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Style } from "../../../../styles";
+import { useTheme } from "../../../../hooks/useTheme";
+import { alpha } from "../../../../utils/color";
 import { LucideIcon } from "lucide-react-native";
 
 interface ICardButtonProps {
@@ -11,7 +11,7 @@ interface ICardButtonProps {
    icon?: LucideIcon;
 }
 
-export function CardButton({
+export function ProfileButtonCard({
    title,
    description,
    handleSelect,
@@ -51,11 +51,10 @@ const createStyles = (theme: Style) =>
          borderColor: theme.colors.gray[6],
          flexDirection: "column",
          alignItems: "flex-start",
-         paddingHorizontal: 16,
-         paddingVertical: 16,
+         paddingHorizontal: theme.padding[4],
+         paddingVertical: theme.padding[4],
          gap: 10,
          borderRadius: 20,
-         boxShadow: theme.boxShadow[0],
       },
       icon: {
          backgroundColor: alpha(theme.colors.lime[7], 0.2),

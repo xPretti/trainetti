@@ -2,13 +2,38 @@ import { ThemeType } from "./types/Theme";
 
 export const styles = {
 	[ThemeType.DARK]: {
-      boxShadow: {
-         0: "0px 1px 1px rgba(0, 0, 0, 0.25)",
-         1: "0px 2px 2px rgba(0, 0, 0, 0.25)",
-         2: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-         3: "0px 8px 8px rgba(0, 0, 0, 0.25)",
-         4: "0px 16px 16px rgba(0, 0, 0, 0.25)",
-      },
+		boxShadow: {
+			0: "0px 1px 1px rgba(0, 0, 0, 0.25)",
+			1: "0px 2px 2px rgba(0, 0, 0, 0.25)",
+			2: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+			3: "0px 8px 8px rgba(0, 0, 0, 0.25)",
+			4: "0px 16px 16px rgba(0, 0, 0, 0.25)",
+		},
+
+		padding: {
+			0: 0,
+			1: 5,
+			2: 8,
+			3: 10,
+			4: 15,
+			5: 20,
+			6: 24,
+			7: 28,
+			8: 32,
+			9: 36,
+		},
+      margin: {
+			0: 0,
+			1: 5,
+			2: 8,
+			3: 10,
+			4: 15,
+			5: 20,
+			6: 24,
+			7: 28,
+			8: 32,
+			9: 36,
+		},
 		colors: {
 			absolute: {
 				white: "#FFFFFF",
@@ -27,7 +52,6 @@ export const styles = {
 			header: "#17171f",
 			surface: "#111827",
 			divider: "#374151",
-
 
 			gray: {
 				0: "#e8e9eb",

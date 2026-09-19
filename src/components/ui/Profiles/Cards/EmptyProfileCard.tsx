@@ -1,21 +1,21 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { useTheme } from "../../../hooks/useTheme";
-import { Style } from "../../../styles";
-import { alpha } from '../../../utils/color';
+import { useTheme } from "../../../../hooks/useTheme";
+import { Style } from "../../../../styles";
 
-interface IAddProfileCardProps {
+interface IEmptyProfileProps {
    handleClick?: () => void;
 }
 
-export function AddProfileCard({ handleClick }: IAddProfileCardProps) {
+export function EmptyProfileCard({ handleClick }: IEmptyProfileProps) {
    const { theme } = useTheme();
 
    const styles = createStyles(theme);
 
    return (
       <TouchableOpacity style={styles.container} onPress={handleClick}>
+         <Text style={styles.text}>Nenhum perfil encontrado</Text>
          <Text style={styles.action}>
-            Adicionar um novo perfil
+            Clique aqui para criar um perfil
          </Text>
       </TouchableOpacity>
    );
@@ -28,18 +28,23 @@ const createStyles = (theme: Style) =>
          flexDirection: "column",
          alignItems: "center",
          justifyContent: "center",
-         padding: 20,
+         padding: theme.padding[4],
          borderRadius: 15,
          borderWidth: 1,
          borderColor: theme.colors.gray[4],
          gap: 10,
          borderStyle: "dashed",
-         boxShadow: theme.boxShadow[0],
+      },
+
+      text: {
+         fontSize: theme.fontSize.md,
+         color: theme.colors.black,
+         fontWeight: "regular",
       },
 
       action: {
          fontSize: theme.fontSize.sm,
-         color: theme.colors.tertiary,
-         fontWeight: "regular",
+         color: theme.colors.primary,
+         fontWeight: "bold",
       },
    });

@@ -2,9 +2,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "../../../hooks/useTheme";
 import { Style } from "../../../styles";
 import { ChevronRight } from "lucide-react-native";
-import { ProfileItem } from "./ProfileItem";
+import { HomeProfileItem } from "./HomeProfileItem";
 import { useWorkoutStore } from "../../../hooks/useWorkoutStore";
-import { EmptyProfileCard } from "../../../components/layout/Profiles/EmptyProfileCard";
+import { EmptyProfileCard } from "../../../components/ui/Profiles/Cards/EmptyProfileCard";
 import { navigate, router } from "expo-router/build/global-state/router";
 
 interface IHomeProfilesProps { }
@@ -41,7 +41,7 @@ export function HomeProfiles({ }: IHomeProfilesProps) {
          <View style={styles.profileList}>
             {someProfiles.length > 0 ? (
                someProfiles.map((profile) => (
-                  <ProfileItem
+                  <HomeProfileItem
                      key={profile.id}
                      title={profile.name}
                      handleClick={() => handleSelectProfile(profile.id)}

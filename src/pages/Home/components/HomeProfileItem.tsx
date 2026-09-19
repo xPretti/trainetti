@@ -8,7 +8,7 @@ interface IProfileItemProps {
    handleClick?: () => void;
 }
 
-export function ProfileItem({ title, handleClick }: IProfileItemProps) {
+export function HomeProfileItem({ title, handleClick }: IProfileItemProps) {
    const { theme } = useTheme();
 
    const styles = createStyles(theme);
@@ -33,8 +33,8 @@ const createStyles = (theme: Style) =>
          borderWidth: 1,
          backgroundColor: theme.colors.gray[7],
          borderColor: theme.colors.gray[6],
-         paddingVertical: 8,
-         paddingHorizontal: 10,
+         paddingVertical: theme.padding[2],
+         paddingHorizontal: theme.padding[3],
          borderRadius: 15,
       },
       title: {
