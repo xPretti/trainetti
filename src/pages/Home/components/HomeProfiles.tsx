@@ -3,15 +3,16 @@ import { useTheme } from "../../../hooks/useTheme";
 import { Style } from "../../../styles";
 import { ChevronRight } from "lucide-react-native";
 import { HomeProfileItem } from "./HomeProfileItem";
-import { useWorkoutStore } from "../../../hooks/useWorkoutStore";
 import { EmptyProfileCard } from "../../../components/ui/Profiles/Cards/EmptyProfileCard";
 import { navigate, router } from "expo-router/build/global-state/router";
+import { Profile } from "../../../types/Profile";
 
-interface IHomeProfilesProps { }
+interface IHomeProfilesProps {
+   profiles: Profile[];
+}
 
-export function HomeProfiles({ }: IHomeProfilesProps) {
+export function HomeProfiles({ profiles }: IHomeProfilesProps) {
    const { theme } = useTheme();
-   const profiles = useWorkoutStore((state) => state.profiles);
 
    const styles = createStyles(theme);
 

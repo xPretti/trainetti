@@ -4,11 +4,8 @@ import { Style } from "../../styles";
 import { AddProfileCard } from "../../components/ui/Profiles/Cards/AddProfileCard";
 import { ProfilesList } from "./components/ProfilesList";
 import { useWorkoutStore } from "../../hooks/useWorkoutStore";
-import { NativeStackHeaderProps, useNavigation } from "expo-router";
-import { JSX, useEffect } from "react";
-import { CustomHeader } from "../../components/layout/CustomHeader/CustomHeader";
 import { useHeader } from "../../hooks/useHeader";
-import { ProfileHeader } from "../../components/layout/CustomHeader/ProfileHeader";
+import { ProfileHeader } from "../../components/layout/Headers/ProfileHeader";
 
 interface IProfilesProps { }
 

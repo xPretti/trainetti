@@ -1,7 +1,7 @@
 import { Stack } from "expo-router";
 import { useTheme } from "../hooks/useTheme";
 import { Pressable, StatusBar, View, Text } from "react-native";
-import { CustomHeader } from "../components/layout/CustomHeader/CustomHeader";
+import { CustomHeader } from "../components/layout/Headers/CustomHeader";
 
 export function StackNavigation() {
    const { theme, themeType } = useTheme();
@@ -39,13 +39,6 @@ export function StackNavigation() {
                name="schedules"
                options={{
                   title: "Agendamentos",
-               }}
-            />
-
-            <Stack.Screen
-               name="testpage"
-               options={{
-                  title: "Página de teste",
                }}
             />
          </Stack>

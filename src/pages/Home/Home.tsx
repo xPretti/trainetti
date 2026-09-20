@@ -6,11 +6,13 @@ import { ProfileButtonCard } from "../../components/ui/Profiles/Cards/ProfileBut
 import { Bell, Users } from "lucide-react-native";
 import { navigate } from "expo-router/build/global-state/router";
 import { HomeProfiles } from "./components/HomeProfiles";
+import { useWorkoutStore } from "../../hooks/useWorkoutStore";
 
 interface IHomeProps { }
 
 export function Home({ }: IHomeProps) {
    const { theme } = useTheme();
+   const profiles = useWorkoutStore((state) => state.profiles);
 
    const styles = createStyles(theme);
 
@@ -24,7 +26,7 @@ export function Home({ }: IHomeProps) {
             <View style={styles.nav}>
                <ProfileButtonCard
                   title="Perfis"
-                  description="4 perfis"
+                  description={`${profiles.length} perfis`}
                   icon={Users}
                   handleSelect={() => navigate("profiles")}></ProfileButtonCard>
                <ProfileButtonCard
@@ -33,7 +35,7 @@ export function Home({ }: IHomeProps) {
                   icon={Bell}
                   handleSelect={() => navigate("schedules")}></ProfileButtonCard>
             </View>
-            <HomeProfiles />
+            <HomeProfiles profiles={profiles} />
          </View>
       </ScrollView>
    );
