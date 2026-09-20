@@ -3,6 +3,7 @@
         "name": "Trainetti",
         "slug": "trainetti",
         "version": "1.0.0",
+        "scheme": "trainetti",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "light",
