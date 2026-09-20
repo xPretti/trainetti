@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { View, Text } from "react-native";
-import { Slot, Stack } from "expo-router";
 
 import { Application } from "../application/Application";
 import { AppProvider } from "../contexts/AppContext";

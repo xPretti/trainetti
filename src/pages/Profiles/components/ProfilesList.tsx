@@ -1,17 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useTheme } from "../../../hooks/useTheme";
 import { Style } from "../../../styles";
-import { ChevronRight } from "lucide-react-native";
-import { useWorkoutStore } from "../../../hooks/useWorkoutStore";
-import { EmptyProfileCard } from "../../../components/ui/Profiles/Cards/EmptyProfileCard";
-import { navigate, router } from "expo-router/build/global-state/router";
+import { router } from "expo-router/build/global-state/router";
 import { ProfileItem } from "./ProfileItem";
+import { Profile } from "../../../types/Profile";
 
-interface IProfilesListProps { }
+interface IProfilesListProps {
+   profiles: Profile[];
+}
 
-export function ProfilesList({ }: IProfilesListProps) {
+export function ProfilesList({ profiles }: IProfilesListProps) {
    const { theme } = useTheme();
-   const profiles = useWorkoutStore((state) => state.profiles);
 
    const styles = createStyles(theme);
 

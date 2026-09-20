@@ -31,11 +31,9 @@ export function HomeProfiles({ }: IHomeProfilesProps) {
       <View style={styles.container}>
          <View style={styles.header}>
             <Text style={styles.profileTitle}>Todos os perfis</Text>
-            <TouchableOpacity onPress={handleViewAllProfiles}>
-               <View style={styles.profileViewAllProfiles}>
-                  <Text style={styles.profileViewAllProfilesText}>Ver mais</Text>
-                  <ChevronRight size={16} color={theme.colors.primary} />
-               </View>
+            <TouchableOpacity onPress={handleViewAllProfiles} style={styles.profileViewAllProfiles}>
+               <Text style={styles.profileViewAllProfilesText}>Ver mais</Text>
+               <ChevronRight size={16} color={theme.colors.primary} />
             </TouchableOpacity>
          </View>
          <View style={styles.profileList}>

@@ -20,7 +20,7 @@ export function CustomHeader({
             <TouchableOpacity
                onPress={() => navigation.goBack()}
                style={styles.backButton}>
-               <ChevronLeft size={24} color={theme.colors.black} />
+               <ChevronLeft size={21} color={theme.colors.black} />
             </TouchableOpacity>
          )}
 
