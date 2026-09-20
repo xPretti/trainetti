@@ -3,7 +3,7 @@ import { useTheme } from "../../hooks/useTheme";
 import { Style } from "../../styles";
 import { BottomSheet } from "@expo/ui";
 import { BottomSheetModal } from "@expo/ui/community/bottom-sheet";
-import { BottomSheetModel } from "../../components/ui/BottomSheet/BottomSheetModel";
+import { CustomBottomSheet } from "../../components/ui/BottomSheet/CustomBottomSheet";
 
 interface ICreateProfileBottomSheetProps {
    isPresented: boolean;
@@ -16,7 +16,7 @@ export function CreateProfileBottomSheet({ isPresented, close }: ICreateProfileB
    const styles = createStyles(theme);
 
    return (
-      <BottomSheetModel open={isPresented} close={close}>
+      <CustomBottomSheet open={isPresented} close={close}>
          <Text>Teste1</Text>
          <Text>Teste</Text>
          <Text>Teste</Text>
@@ -29,7 +29,7 @@ export function CreateProfileBottomSheet({ isPresented, close }: ICreateProfileB
          <Text>Teste</Text>
          <Text>Teste</Text>
          <Text>Teste</Text>
-      </BottomSheetModel>
+      </CustomBottomSheet>
    );
 };
 

@@ -11,7 +11,7 @@ interface IBottomSheetModelProps {
    children: React.ReactNode;
 }
 
-export function BottomSheetModel({ open, close, children }: IBottomSheetModelProps) {
+export function CustomBottomSheet({ open, close, children }: IBottomSheetModelProps) {
    const { theme } = useTheme();
    const styles = createStyles(theme);
    const sheetRef = useRef<BottomSheet>(null);
