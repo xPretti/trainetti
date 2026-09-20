@@ -35,7 +35,7 @@ const createStyles = (theme: Style) =>
          borderColor: theme.colors.gray[6],
          paddingVertical: theme.padding[2],
          paddingHorizontal: theme.padding[3],
-         borderRadius: 15,
+         borderRadius: theme.borderRadius[4],
       },
       title: {
          fontSize: theme.fontSize.md,

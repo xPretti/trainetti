@@ -14,11 +14,6 @@ export function Profiles({ }: IProfilesProps) {
    return (
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} >
          <ProfilesList />
-         <ProfilesList />
-         <ProfilesList />
-         <ProfilesList />
-         <ProfilesList />
-         <ProfilesList />
          <View style={styles.addProfile}>
             <AddProfileCard />
          </View>

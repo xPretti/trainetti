@@ -19,18 +19,21 @@ export function ProfilesList({ }: IProfilesListProps) {
       router.push(`/profiles/${profile}`);
    };
 
+   if (profiles.length === 0) {
+      return null;
+   }
 
    return (
       <View style={styles.container}>
-            {profiles.length > 0 && (
-               profiles.map((profile) => (
-                  <ProfileItem
-                     key={profile.id}
-                     title={profile.name}
-                     handleClick={() => handleSelectProfile(profile.id)}
-                  />
-               ))
-            )}
+         {
+            profiles.map((profile) => (
+               <ProfileItem
+                  key={profile.id}
+                  title={profile.name}
+                  handleClick={() => handleSelectProfile(profile.id)}
+               />
+            ))
+         }
       </View>
    );
 }

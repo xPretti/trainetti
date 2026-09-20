@@ -29,7 +29,7 @@ const createStyles = (theme: Style) =>
          alignItems: "center",
          justifyContent: "center",
          padding: theme.padding[4],
-         borderRadius: 15,
+         borderRadius: theme.borderRadius[4],
          borderWidth: 1,
          borderColor: theme.colors.gray[4],
          gap: 10,
