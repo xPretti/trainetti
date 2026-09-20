@@ -6,11 +6,15 @@ import { ProfilesList } from "./components/ProfilesList";
 import { useWorkoutStore } from "../../hooks/useWorkoutStore";
 import { useHeader } from "../../hooks/useHeader";
 import { ProfileHeader } from "../../components/layout/Headers/ProfileHeader";
+import { useState } from "react";
+import { CreateProfileBottomSheet } from "../../features/profile/CreateProfileBottomSheet";
 
 interface IProfilesProps { }
 
 export function Profiles({ }: IProfilesProps) {
    const { theme } = useTheme();
+   const [profileCreate, setProfileCreate] = useState(false);
+
    useHeader((props) => <ProfileHeader {...props} createProfile={handleCreateNewProfile}/>);
 
    const profiles = useWorkoutStore((state) => state.profiles);
@@ -18,10 +22,15 @@ export function Profiles({ }: IProfilesProps) {
    const styles = createStyles(theme);
 
    const handleCreateNewProfile = () => {
-      console.log("create new profile");
+      setProfileCreate(true);
+   };
+
+   const handleCloseCreateNewProfile = () => {
+      setProfileCreate(false);
    };
 
    return (
+      <>
       <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer} >
          <Text style={styles.title}>Todos os perfis</Text>
          <ProfilesList profiles={profiles} />
@@ -29,6 +38,8 @@ export function Profiles({ }: IProfilesProps) {
             <AddProfileCard handleClick={handleCreateNewProfile} />
          </View>
       </ScrollView>
+      {profileCreate && <CreateProfileBottomSheet isPresented={profileCreate} close={handleCloseCreateNewProfile} />}
+      </>
    );
 };
 
