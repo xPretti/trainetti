@@ -1,9 +1,11 @@
-import { Button, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { useTheme } from "../../hooks/useTheme";
-import { Style } from "../../styles";
 import { CustomBottomSheet } from "../../components/ui/BottomSheet/CustomBottomSheet";
 import { useState } from "react";
 import { CreateProfileForm } from "../../components/layout/Profiles/CreateProfileForm";
+import { Style } from "../../styles";
+import { Button } from "../../components/ui/Button";
+import { useWorkoutStore } from "../../hooks/useWorkoutStore";
 
 interface ICreateProfileBottomSheetProps {
    isPresented: boolean;
@@ -12,38 +14,63 @@ interface ICreateProfileBottomSheetProps {
 
 export function CreateProfileBottomSheet({ isPresented, close }: ICreateProfileBottomSheetProps) {
    const { theme } = useTheme();
+
+   const addProfile = useWorkoutStore((state) => state.addProfile);
+   const existsProfileByName = useWorkoutStore((state) => state.existsProfileByName);
+
    const [inputValue, setInputValue] = useState("");
+
    const styles = createStyles(theme);
 
-   return (
-      <CustomBottomSheet title="Criar novo perfil" open={isPresented} close={close}>
-         <View style={styles.container}>
-            <View style={styles.content}>
-               <CreateProfileForm profileNameInput={inputValue} setProfileNameInput={setInputValue} />
-            </View>
+   const handleAddProfile = async () => {
+      if (!inputValue.trim()) return;
+      if (existsProfileByName(inputValue)) return;
+      await addProfile(inputValue);
+      setInputValue("");
+      close();
+   };
 
-            <View style={styles.buttonContainer}>
-               <Button title="Salvar" onPress={() => console.log("Salvar")} />
-               <Button title="Cancelar" color={theme.colors.gray[5]} onPress={close} />
+   const handleCheckProfile = (name: string) => {
+      return existsProfileByName(name);
+   };
+
+   return (
+      <CustomBottomSheet
+         title="Criar novo perfil"
+         open={isPresented}
+         close={close}
+         footer={
+            <View style={styles.footer}>
+               <Button title="Salvar" variant="primary" onPress={handleAddProfile} />
+               <Button title="Cancelar" variant="ghost" onPress={close} />
             </View>
-         </View>
+         }
+      >
+         <CreateProfileForm
+            profileNameInput={inputValue}
+            setProfileNameInput={setInputValue}
+            existProfile={handleCheckProfile}
+         />
       </CustomBottomSheet>
    );
-};
+}
 
 const createStyles = (theme: Style) =>
-  StyleSheet.create({
-    container: {
-      justifyContent: "space-between",
-    },
-
-    content: {
-      justifyContent: "space-between",
-      minHeight: 180,
-    },
-
-    buttonContainer: {
-      width: "100%",
-      gap: 10,
-    },
-  });
+   StyleSheet.create({
+      footer: {
+         gap: 10,
+      },
+      button: {
+         width: "100%",
+         height: 40,
+         borderRadius: 100,
+         backgroundColor: theme.colors.primary,
+         justifyContent: "center",
+         alignItems: "center",
+      },
+      buttonText: {
+         color: theme.colors.white,
+         fontSize: theme.fontSize.sm,
+         fontWeight: "bold",
+      },
+   });

@@ -8,160 +8,179 @@ import { IProfileRepository } from "../interfaces/IProfileRepository";
 import { IExerciseRepository } from "../interfaces/IExerciseRepository";
 
 export type WorkoutState = {
-  profiles: Profile[];
-  exercises: Exercise[];
+	profiles: Profile[];
+	exercises: Exercise[];
 
-  loading: boolean;
+	loading: boolean;
 
-  hydrate: () => Promise<void>;
+	hydrate: () => Promise<void>;
 
-  addProfile: (name: string) => Promise<void>;
+	addProfile: (name: string) => Promise<void>;
 
-  addExerciseSeries: (
-    profileId: string,
-    name: string,
-    day: number,
-    series: number,
-    repetitionsMin: number,
-    repetitionsMax: number,
-    restTime: number,
-    weight: number,
-  ) => Promise<void>;
+	existsProfile: (id: string) => boolean;
 
-  addExerciseContinuous: (
-    profileId: string,
-    name: string,
-    day: number,
-    duration: number,
-    restTime: number,
-  ) => Promise<void>;
+	existsProfileByName: (name: string) => boolean;
 
-  removeProfile: (id: string) => Promise<void>;
+	addExerciseSeries: (
+		profileId: string,
+		name: string,
+		day: number,
+		series: number,
+		repetitionsMin: number,
+		repetitionsMax: number,
+		restTime: number,
+		weight: number,
+	) => Promise<void>;
 
-  removeExercise: (id: string) => Promise<void>;
+	addExerciseContinuous: (
+		profileId: string,
+		name: string,
+		day: number,
+		duration: number,
+		restTime: number,
+	) => Promise<void>;
+
+	removeProfile: (id: string) => Promise<void>;
+
+	removeExercise: (id: string) => Promise<void>;
 };
 
 export function createWorkoutStore(
-  profiles: IProfileRepository,
-  exercises: IExerciseRepository,
+	profiles: IProfileRepository,
+	exercises: IExerciseRepository,
 ) {
-  return create<WorkoutState>((set) => ({
-    profiles: [],
-    exercises: [],
+	return create<WorkoutState>((set, get) => ({
+		profiles: [],
+		exercises: [],
 
-    loading: false,
+		loading: false,
 
-    hydrate: async () => {
-      set({
-        loading: true,
-      });
+		hydrate: async () => {
+			set({
+				loading: true,
+			});
 
-      try {
-        const [profilesData, exercisesData] = await Promise.all([
-          profiles.findAll(),
-          exercises.findAll(),
-        ]);
+			try {
+				const [profilesData, exercisesData] = await Promise.all([
+					profiles.findAll(),
+					exercises.findAll(),
+				]);
 
-        set({
-          profiles: profilesData,
-          exercises: exercisesData,
-        });
-      } finally {
-        set({
-          loading: false,
-        });
-      }
-    },
+				set({
+					profiles: profilesData,
+					exercises: exercisesData,
+				});
+			} finally {
+				set({
+					loading: false,
+				});
+			}
+		},
 
-    addProfile: async (name) => {
-      const profile: Profile = {
-        id: generateId(),
-        name,
-        createdAt: Date.now(),
-      };
+		addProfile: async (name) => {
+			name = name.trim();
+			if (get().existsProfileByName(name) || !name) {
+				return;
+			}
+			const profile: Profile = {
+				id: generateId(),
+				name,
+				createdAt: Date.now(),
+			};
 
-      await profiles.create(profile);
+			await profiles.create(profile);
 
-      set((state) => ({
-        profiles: [...state.profiles, profile],
-      }));
-    },
+			set((state) => ({
+				profiles: [...state.profiles, profile],
+			}));
+		},
 
-    addExerciseSeries: async (
-      profileId,
-      name,
-      day,
-      series,
-      repetitionsMin,
-      repetitionsMax,
-      restTime,
-      weight,
-    ) => {
-      const exercise: Exercise = {
-        id: generateId(),
-        profileId,
-        name,
-        day,
-        createdAt: Date.now(),
-        exerciseType: "series",
-        series,
-        repetitionsMin,
-        repetitionsMax,
-        restTime,
-        weight,
-        duration: null,
-      };
+		existsProfile: (id) => {
+			return get().profiles.some((profile) => profile.id === id);
+		},
 
-      await exercises.create(exercise);
+		existsProfileByName: (name) => {
+			const normalizedInput = name.trim().toLowerCase();
+			return get().profiles.some(
+				(profile) => profile.name.trim().toLowerCase() === normalizedInput,
+			);
+		},
 
-      set((state) => ({
-        exercises: [...state.exercises, exercise],
-      }));
-    },
+		addExerciseSeries: async (
+			profileId,
+			name,
+			day,
+			series,
+			repetitionsMin,
+			repetitionsMax,
+			restTime,
+			weight,
+		) => {
+			const exercise: Exercise = {
+				id: generateId(),
+				profileId,
+				name,
+				day,
+				createdAt: Date.now(),
+				exerciseType: "series",
+				series,
+				repetitionsMin,
+				repetitionsMax,
+				restTime,
+				weight,
+				duration: null,
+			};
 
-    addExerciseContinuous: async (profileId, name, day, duration, restTime) => {
-      const exercise: Exercise = {
-        id: generateId(),
-        profileId,
-        name,
-        day,
-        createdAt: Date.now(),
-        exerciseType: "continuous",
-        duration,
-        series: null,
-        repetitionsMin: null,
-        repetitionsMax: null,
-        restTime,
-        weight: null,
-      };
+			await exercises.create(exercise);
 
-      await exercises.create(exercise);
+			set((state) => ({
+				exercises: [...state.exercises, exercise],
+			}));
+		},
 
-      set((state) => ({
-        exercises: [...state.exercises, exercise],
-      }));
-    },
+		addExerciseContinuous: async (profileId, name, day, duration, restTime) => {
+			const exercise: Exercise = {
+				id: generateId(),
+				profileId,
+				name,
+				day,
+				createdAt: Date.now(),
+				exerciseType: "continuous",
+				duration,
+				series: null,
+				repetitionsMin: null,
+				repetitionsMax: null,
+				restTime,
+				weight: null,
+			};
 
-    removeProfile: async (id) => {
-      await profiles.delete(id);
+			await exercises.create(exercise);
 
-      await exercises.deleteByProfileId(id);
+			set((state) => ({
+				exercises: [...state.exercises, exercise],
+			}));
+		},
 
-      set((state) => ({
-        profiles: state.profiles.filter((profile) => profile.id !== id),
+		removeProfile: async (id) => {
+			await profiles.delete(id);
 
-        exercises: state.exercises.filter(
-          (exercise) => exercise.profileId !== id,
-        ),
-      }));
-    },
+			await exercises.deleteByProfileId(id);
 
-    removeExercise: async (id) => {
-      await exercises.delete(id);
+			set((state) => ({
+				profiles: state.profiles.filter((profile) => profile.id !== id),
 
-      set((state) => ({
-        exercises: state.exercises.filter((exercise) => exercise.id !== id),
-      }));
-    },
-  }));
+				exercises: state.exercises.filter(
+					(exercise) => exercise.profileId !== id,
+				),
+			}));
+		},
+
+		removeExercise: async (id) => {
+			await exercises.delete(id);
+
+			set((state) => ({
+				exercises: state.exercises.filter((exercise) => exercise.id !== id),
+			}));
+		},
+	}));
 }
