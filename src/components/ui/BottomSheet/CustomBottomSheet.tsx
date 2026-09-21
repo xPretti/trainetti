@@ -7,41 +7,52 @@ import { X } from "lucide-react-native";
 
 interface IBottomSheetModelProps {
    open: boolean;
+   title?: string;
    close: () => void;
    children: React.ReactNode;
 }
 
-export function CustomBottomSheet({ open, close, children }: IBottomSheetModelProps) {
-   const { theme } = useTheme();
-   const styles = createStyles(theme);
-   const sheetRef = useRef<BottomSheet>(null);
+export function CustomBottomSheet({
+  title,
+  open,
+  close,
+  children,
+}: IBottomSheetModelProps) {
+  const { theme } = useTheme();
+  const styles = createStyles(theme);
+  const sheetRef = useRef<BottomSheet>(null);
 
-   useEffect(() => {
-      if (open) {
-         sheetRef.current?.snapToIndex(0);
-      } else {
-         sheetRef.current?.snapToIndex(-1);
-      }
-   }, [open]);
+  useEffect(() => {
+    if (open) {
+      sheetRef.current?.snapToIndex(0);
+    } else {
+      sheetRef.current?.snapToIndex(-1);
+    }
+  }, [open]);
 
-   return (
-      <BottomSheet
-         ref={sheetRef}
-         index={-1}
-         snapPoints={["50%", "90%"]}
-         enablePanDownToClose
-         onClose={close}
-         backgroundStyle={{ backgroundColor: theme.colors.header }}
-      >
-         <BottomSheetView style={styles.header}>
-            <Text style={styles.title}>Título</Text>
-            <TouchableOpacity onPress={close} style={styles.closeButton}>
-               <X size={20} color={theme.colors.black} />
-            </TouchableOpacity>
-         </BottomSheetView>
-         <BottomSheetView style={styles.content}>{children}</BottomSheetView>
-      </BottomSheet>
-   );
+  return (
+    <BottomSheet
+      ref={sheetRef}
+      index={-1}
+      snapPoints={["50%", "100%"]}
+      onClose={close}
+      backgroundStyle={{
+        backgroundColor: theme.colors.header,
+      }}
+    >
+      <BottomSheetView style={styles.header}>
+        <Text style={styles.title}>{title}</Text>
+
+        <TouchableOpacity onPress={close} style={styles.closeButton}>
+          <X size={20} color={theme.colors.black} />
+        </TouchableOpacity>
+      </BottomSheetView>
+
+      <BottomSheetView style={styles.content}>
+        {children}
+      </BottomSheetView>
+    </BottomSheet>
+  );
 }
 
 const createStyles = (theme: Style) =>
@@ -66,6 +77,7 @@ const createStyles = (theme: Style) =>
          borderRadius: 100,
       },
       content: {
+         flex: 1,
          padding: theme.padding[4],
       },
    });
