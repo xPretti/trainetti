@@ -48,7 +48,6 @@ export function CreateProfileBottomSheet({ isPresented, close }: ICreateProfileB
          }
       >
          <CreateProfileForm
-            profileNameInput={inputValue}
             setProfileNameInput={setInputValue}
             existProfile={handleCheckProfile}
          />
