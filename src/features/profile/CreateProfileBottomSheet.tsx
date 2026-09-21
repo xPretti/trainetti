@@ -39,6 +39,7 @@ export function CreateProfileBottomSheet({ isPresented, close }: ICreateProfileB
          title="Criar novo perfil"
          open={isPresented}
          close={close}
+         height="60%"
          footer={
             <View style={styles.footer}>
                <Button title="Salvar" variant="primary" onPress={handleAddProfile} />
