@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useTheme } from "../../../hooks/useTheme";
 import { Style } from "../../../styles";
 import { ChevronRight } from "lucide-react-native";
+import { useMemo } from "react";
 
 interface IProfileItemProps {
    title: string;
@@ -11,7 +12,7 @@ interface IProfileItemProps {
 export function HomeProfileItem({ title, handleClick }: IProfileItemProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    return (
       <TouchableOpacity style={styles.container} onPress={handleClick}>

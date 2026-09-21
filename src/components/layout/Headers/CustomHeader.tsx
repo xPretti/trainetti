@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { NativeStackHeaderProps } from "expo-router";
 import { Style } from "../../../styles";
 import { ChevronLeft } from "lucide-react-native";
+import { useMemo } from 'react';
 
 export function CustomHeader({
    options,
@@ -12,7 +13,7 @@ export function CustomHeader({
 }: NativeStackHeaderProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    return (
       <View style={styles.container}>

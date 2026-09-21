@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../../../hooks/useTheme";
 import { Style } from "../../../styles";
 import { TextInput } from "../../ui/TextInput";
+import { useMemo } from "react";
 
 interface ICreateProfileFormProps {
    profileNameInput: string;
@@ -13,7 +14,7 @@ interface ICreateProfileFormProps {
 export function CreateProfileForm({ profileNameInput, setProfileNameInput, existProfile }: ICreateProfileFormProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    const handleExistsProfile = (): boolean => {
       return profileNameInput.trim().length > 0 && existProfile(profileNameInput);

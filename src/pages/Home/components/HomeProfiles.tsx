@@ -6,6 +6,7 @@ import { HomeProfileItem } from "./HomeProfileItem";
 import { EmptyProfileCard } from "../../../components/ui/Profiles/Cards/EmptyProfileCard";
 import { navigate, router } from "expo-router/build/global-state/router";
 import { Profile } from "../../../types/Profile";
+import { useMemo } from "react";
 
 interface IHomeProfilesProps {
    profiles: Profile[];
@@ -14,7 +15,7 @@ interface IHomeProfilesProps {
 export function HomeProfiles({ profiles }: IHomeProfilesProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    const handleSelectProfile = (profile: string): void => {
       router.push(`/profiles/${profile}`);

@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "../../hooks/useTheme";
 import { CustomBottomSheet } from "../../components/ui/BottomSheet/CustomBottomSheet";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { CreateProfileForm } from "../../components/layout/Profiles/CreateProfileForm";
 import { Style } from "../../styles";
 import { Button } from "../../components/ui/Button";
@@ -20,7 +20,7 @@ export function CreateProfileBottomSheet({ isPresented, close }: ICreateProfileB
 
    const [inputValue, setInputValue] = useState("");
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    const handleAddProfile = async () => {
       if (!inputValue.trim()) return;

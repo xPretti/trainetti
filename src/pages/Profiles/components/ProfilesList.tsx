@@ -4,6 +4,7 @@ import { Style } from "../../../styles";
 import { router } from "expo-router/build/global-state/router";
 import { ProfileItem } from "./ProfileItem";
 import { Profile } from "../../../types/Profile";
+import { useMemo } from "react";
 
 interface IProfilesListProps {
    profiles: Profile[];
@@ -12,7 +13,7 @@ interface IProfilesListProps {
 export function ProfilesList({ profiles }: IProfilesListProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    const handleSelectProfile = (profile: string): void => {
       router.push(`/profiles/${profile}`);

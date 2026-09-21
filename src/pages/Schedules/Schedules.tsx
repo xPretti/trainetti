@@ -1,13 +1,14 @@
 import { StyleSheet } from "react-native";
 import { Style } from "../../styles";
 import { useTheme } from "../../hooks/useTheme";
+import { useMemo } from "react";
 
 interface ISchedulesProps {}
 
 export function Schedules ({}: ISchedulesProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    return (
       <></>

@@ -3,6 +3,7 @@ import { Style } from "../../../../styles";
 import { useTheme } from "../../../../hooks/useTheme";
 import { alpha } from "../../../../utils/color";
 import { LucideIcon } from "lucide-react-native";
+import { useMemo } from "react";
 
 interface ICardButtonProps {
    title: string;
@@ -19,7 +20,7 @@ export function ProfileButtonCard({
 }: ICardButtonProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    return (
       <View style={styles.container}>

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from "../../../../hooks/useTheme";
 import { Style } from "../../../../styles";
+import { useMemo } from 'react';
 
 interface IEmptyProfileProps {
    handleClick?: () => void;
@@ -9,7 +10,7 @@ interface IEmptyProfileProps {
 export function EmptyProfileCard({ handleClick }: IEmptyProfileProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    return (
       <TouchableOpacity style={styles.container} onPress={handleClick}>

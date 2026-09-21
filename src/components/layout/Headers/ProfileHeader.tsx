@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 import { NativeStackHeaderProps, NativeStackNavigationOptions } from "expo-router";
 import { Style } from "../../../styles";
 import { ChevronLeft, Plus } from "lucide-react-native";
+import { useMemo } from 'react';
 
 interface IProfileHeaderProps extends NativeStackHeaderProps {
    createProfile?: () => void;
@@ -17,7 +18,7 @@ export function ProfileHeader({
 }: IProfileHeaderProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    return (
       <View style={styles.container}>

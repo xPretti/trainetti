@@ -3,6 +3,7 @@ import { useTheme } from "../../../../hooks/useTheme";
 import { Style } from "../../../../styles";
 import { alpha } from '../../../../utils/color';
 import { Plus } from 'lucide-react-native';
+import { useMemo } from 'react';
 
 interface IAddProfileCardProps {
    handleClick?: () => void;
@@ -11,7 +12,7 @@ interface IAddProfileCardProps {
 export function AddProfileCard({ handleClick }: IAddProfileCardProps) {
    const { theme } = useTheme();
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    return (
       <TouchableOpacity style={styles.container} onPress={handleClick}>

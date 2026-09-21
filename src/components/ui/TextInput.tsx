@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextInput as RNTextInput, View } from "react-native";
 import { Style } from "../../styles";
 import { useTheme } from "../../hooks/useTheme";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 interface ITextInputProps {
    id?: string;
@@ -32,7 +32,7 @@ export function TextInput({
 
    const [isFocused, setIsFocused] = useState(false);
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    const isEmpty = !value.trim();
 
@@ -43,19 +43,13 @@ export function TextInput({
          ? requiredMessage
          : errorMessage;
 
-   function handleChange(text: string) {
-      const formattedValue = text.trimStart();
-
-      onChange(formattedValue);
-   }
-
    return (
       <View style={styles.container}>
          <RNTextInput
             nativeID={id}
             value={value}
             placeholder={placeholder}
-            onChangeText={handleChange}
+            onChangeText={onChange}
             style={[
                styles.input,
                isFocused && styles.inputFocused,

@@ -6,7 +6,7 @@ import { ProfilesList } from "./components/ProfilesList";
 import { useWorkoutStore } from "../../hooks/useWorkoutStore";
 import { useHeader } from "../../hooks/useHeader";
 import { ProfileHeader } from "../../components/layout/Headers/ProfileHeader";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { CreateProfileBottomSheet } from "../../features/profile/CreateProfileBottomSheet";
 
 interface IProfilesProps { }
@@ -19,7 +19,7 @@ export function Profiles({ }: IProfilesProps) {
 
    const profiles = useWorkoutStore((state) => state.profiles);
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    const handleCreateNewProfile = () => {
       setProfileCreate(true);

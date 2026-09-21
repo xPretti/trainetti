@@ -7,6 +7,7 @@ import { Bell, Users } from "lucide-react-native";
 import { navigate } from "expo-router/build/global-state/router";
 import { HomeProfiles } from "./components/HomeProfiles";
 import { useWorkoutStore } from "../../hooks/useWorkoutStore";
+import { useMemo } from "react";
 
 interface IHomeProps { }
 
@@ -14,7 +15,7 @@ export function Home({ }: IHomeProps) {
    const { theme } = useTheme();
    const profiles = useWorkoutStore((state) => state.profiles);
 
-   const styles = createStyles(theme);
+   const styles = useMemo(() => createStyles(theme), [theme]);
 
    const handleSelectProfile = (profile: string): void => {
       console.log(profile);
